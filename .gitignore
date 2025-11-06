@@ -34,3 +34,8 @@ yarn.lock
 # Arquivos grandes (vídeos)
 assets/video de abertura/Site LAB.mp4
 *.mp4
+
+# Python e scripts de automação
+*.py
+requirements.txt
+pdfs_baixados/
