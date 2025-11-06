@@ -30,3 +30,7 @@ yarn.lock
 *.bak
 *.backup
 *~
+
+# Arquivos grandes (vídeos)
+assets/video de abertura/Site LAB.mp4
+*.mp4
