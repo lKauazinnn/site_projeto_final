@@ -1,0 +1,14 @@
+:root {
+    --navy: #152847;
+    --navy-dark: #0B1529;
+    --blue-primary: #2563EB;
+    /* ...outras variáveis... */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ...restante do CSS base... */
