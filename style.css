@@ -1328,7 +1328,7 @@ img, video {
     }
     
     .nav-menu ul {
-        gap: 10px;
+        gap: 0px;
     }
     
     .logo img {
