@@ -35,6 +35,11 @@
     --transition: all 0.3s ease;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-dark);
@@ -42,7 +47,14 @@ body {
     overflow-x: hidden;
 }
 
+/* Garantir que todos os elementos se ajustem ao container */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -71,8 +83,8 @@ body {
 }
 
 .logo img {
-    height: 100px;
-    width: auto; /* Garante que a largura se ajuste para manter a proporção */
+    max-height: 100px;
+    width: auto;
 }
 
 .nav-menu ul {
@@ -1274,64 +1286,208 @@ body {
 }
 
 /* ============================================
-   RESPONSIVO
+   RESPONSIVO - NOVA IMPLEMENTAÇÃO COMPLETA
    ============================================ */
-@media (max-width: 1024px) {
-    .sobre-content,
-    .contato-content {
-        grid-template-columns: 1fr;
-    }
 
-    .hero-content h1 {
-        font-size: 2.5rem;
+/* ============================================
+   DESKTOP (acima de 992px) - Layout original mantido
+   ============================================ */
+@media (min-width: 993px) {
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 12px 0;
     }
-
-    .hero-content p {
-        font-size: 1.2rem;
+    
+    .logo img {
+        max-height: 100px;
     }
-
-    .section-title {
-        font-size: 2.2rem;
+    
+    .btn-mobile-menu {
+        display: none;
     }
-
-    .sobre-text,
-    .sobre-text-final {
-        padding: 30px;
-    }
-
-    .corpo-clinico-grid {
-        gap: 25px;
+    
+    .nav-menu {
+        display: block;
     }
 }
 
-@media (max-width: 768px) {
-    .nav-menu {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        height: calc(100vh - 80px);
-        background: var(--bg-white);
-        flex-direction: column;
-        padding: 30px 0;
-        transition: var(--transition);
-        box-shadow: var(--shadow-lg);
-        width: 100%;
+/* ============================================
+   TABLETS (até 992px)
+   ============================================ */
+@media (max-width: 992px) {
+    .header-content {
+        padding: 10px 0;
+        gap: 15px;
     }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
+    
     .nav-menu ul {
+        gap: 20px;
+    }
+    
+    .logo img {
+        max-height: 80px;
+    }
+    
+    .btn-mobile-menu {
+        display: none;
+    }
+    
+    .nav-menu {
+        display: block;
+    }
+    
+    .hero {
+        min-height: 500px;
+    }
+    
+    .hero-content h1 {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+    }
+    
+    .hero-content p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    /* Seções com padding reduzido */
+    section {
+        padding: 60px 0;
+    }
+    
+    /* Grids automáticos */
+    .especialidades-grid,
+    .exames-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+/* ============================================
+   DISPOSITIVOS MÓVEIS (até 768px) - PRIORIDADE MÁXIMA
+   ============================================ */
+@media (max-width: 768px) {
+    /* HEADER MOBILE - Prioridade máxima */
+    .btn-mobile-menu {
+        display: inline-flex;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-dark);
+        padding: 8px;
+        border-radius: 4px;
+        transition: var(--transition);
+    }
+    
+    .btn-mobile-menu:hover {
+        background: rgba(37, 99, 235, 0.1);
+    }
+    
+    /* Menu mobile oculto por padrão */
+    .nav-menu {
+        display: none;
+    }
+    
+    /* Menu mobile ativo - expansível */
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #d6dfea;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        padding: 20px 0;
+        align-items: center;
+        gap: 16px;
+        animation: slideDown 0.3s ease forwards;
+        z-index: 999;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes slideDown {
+        from { 
+            opacity: 0; 
+            transform: translateY(-10px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    }
+    
+    .nav-menu.active ul {
         flex-direction: column;
         width: 100%;
         text-align: center;
+        gap: 16px;
     }
-
-    .nav-menu > ul > li {
+    
+    .nav-menu.active a {
+        padding: 12px 20px;
         width: 100%;
+        display: block;
+        border-radius: 8px;
+        transition: var(--transition);
     }
-
+    
+    .nav-menu.active a:hover {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-blue);
+    }
+    
+    /* Header centralizado */
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        position: relative;
+        padding: 15px 0;
+    }
+    
+    /* Logo fica no topo */
+    .logo {
+        order: 1;
+        margin: 0;
+    }
+    
+    /* Botão mobile fica abaixo da logo */
+    .btn-mobile-menu {
+        order: 2;
+        margin: 8px 0;
+    }
+    
+    /* Header actions ficam por último */
+    .header-actions {
+        order: 3;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+    
+    /* Botões ajustados */
+    .btn-login, 
+    .btn-espaco-saude, 
+    .btn-resultados {
+        width: 90%;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .logo img {
+        max-height: 70px;
+    }
+    
+    /* Dropdown mobile */
     .dropdown-menu {
         position: static;
         opacity: 0;
@@ -1343,6 +1499,9 @@ body {
         padding: 0;
         margin-top: 0;
         transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        margin: 8px 0;
     }
 
     .dropdown.active .dropdown-menu {
@@ -1356,35 +1515,97 @@ body {
         justify-content: center;
     }
     
-    .btn-mobile-menu {
-        display: block;
-    }
-    
-    .btn-login {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-    }
-    
+    /* HERO MOBILE */
     .hero {
-        margin-top: 80px;
-        min-height: 500px;
+        margin-top: 120px; /* Espaço maior para header mobile */
+        min-height: 400px;
+    }
+    
+    .hero .hero-content {
+        text-align: center;
+        padding: 0 20px;
+        margin: 0 auto;
     }
     
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: clamp(2rem, 6vw, 3.5rem);
     }
     
     .hero-content p {
-        font-size: 1rem;
+        font-size: clamp(1rem, 3.5vw, 1.5rem);
     }
     
     .hero-buttons {
         flex-direction: column;
-        gap: 15px;
+        align-items: center;
+        gap: 12px;
     }
     
+    /* SEÇÕES DE CONTEÚDO */
     .section-title {
         font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    /* Grids em coluna única */
+    .especialidades-grid,
+    .exames-grid,
+    .missao-visao-valores {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .exame-card,
+    .especialidade-card {
+        min-height: auto;
+        padding: 20px;
+    }
+    
+    /* VÍDEO E ESTATÍSTICAS */
+    .video-container {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    
+    video {
+        width: 100%;
+        height: auto;
+    }
+    
+    .sobre-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    /* CONVÊNIOS */
+    .convenios-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .convenio-item {
+        height: auto;
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* FOOTER */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .footer-logo {
+        max-width: 120px;
+    }
+    
+    /* Outros ajustes mobile */
+    .sobre-content,
+    .contato-content {
+        grid-template-columns: 1fr;
     }
 
     .sobre-text,
@@ -1427,23 +1648,34 @@ body {
     .profissional-info h3 {
         font-size: 1.15rem;
     }
-
-    .sobre-stats {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .especialidades-grid,
-    .exames-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .convenios-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
+/* ============================================
+   CELULARES PEQUENOS (até 480px)
+   ============================================ */
 @media (max-width: 480px) {
+    /* Logo centralizada e menor */
+    .logo img {
+        max-width: 120px;
+        height: auto;
+    }
+    
+    .logo {
+        margin: 0 auto;
+    }
+    
+    /* Botão mobile maior */
+    .btn-mobile-menu {
+        font-size: 26px;
+        padding: 8px;
+    }
+    
+    /* Menu com fontes menores */
+    .nav-menu a {
+        font-size: 0.9rem;
+    }
+    
+    /* Hero ajustado */
     .hero-content h1 {
         font-size: 1.8rem;
     }
